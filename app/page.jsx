@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useAppContext } from "@/context/AppContext";
 import "./home.css";
 import Navbar from "@/components/Navbar";
@@ -59,7 +59,7 @@ export default function HomePage() {
     trackRef.current.style.transform = `translateX(${px}px)`;
   };
 
-  const goTo = (index) => {
+  const goTo = useCallback((index) => {
     const safeIndex = Math.max(0, Math.min(total - 1, index));
     sliderState.current.current = safeIndex;
     sliderState.current.baseOffset = -(safeIndex * cardWidth());
@@ -70,24 +70,24 @@ export default function HomePage() {
         d.classList.toggle("active", i === safeIndex);
       });
     }
-  };
+  }, [total]);
 
-  const onDragStart = (e) => {
+  const onDragStart = useCallback((e) => {
     sliderState.current.isDragging = true;
     sliderState.current.dragStartX = e.type === "mousedown" ? e.clientX : e.touches[0].clientX;
     sliderState.current.dragCurrentX = sliderState.current.dragStartX;
     if (trackRef.current) trackRef.current.classList.add("dragging");
     if (e.type === "mousedown") e.preventDefault();
-  };
+  }, []);
 
-  const onDragMove = (e) => {
+  const onDragMove = useCallback((e) => {
     if (!sliderState.current.isDragging) return;
     sliderState.current.dragCurrentX = e.type === "mousemove" ? e.clientX : e.touches[0].clientX;
     const diff = sliderState.current.dragCurrentX - sliderState.current.dragStartX;
     applyTranslate(sliderState.current.baseOffset + diff, false);
-  };
+  }, []);
 
-  const onDragEnd = () => {
+  const onDragEnd = useCallback(() => {
     if (!sliderState.current.isDragging) return;
     sliderState.current.isDragging = false;
     if (trackRef.current) trackRef.current.classList.remove("dragging");
@@ -96,7 +96,7 @@ export default function HomePage() {
     if (diff < -60) goTo(sliderState.current.current + 1);
     else if (diff > 60) goTo(sliderState.current.current - 1);
     else goTo(sliderState.current.current);
-  };
+  }, [goTo]);
 
   useEffect(() => {
     const onWindowMouseMove = (e) => onDragMove(e);
@@ -112,7 +112,7 @@ export default function HomePage() {
       window.removeEventListener("mouseup", onWindowMouseUp);
       window.removeEventListener("resize", handleResize);
     };
-  }, [total]);
+  }, [onDragMove, onDragEnd, goTo]);
 
   const handleTrackClick = (e) => {
     if (Math.abs(sliderState.current.dragCurrentX - sliderState.current.dragStartX) > 5) {
