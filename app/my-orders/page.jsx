@@ -69,7 +69,7 @@ export default function MyOrdersPage() {
           <div className="text-center py-20 bg-[#13131a] rounded-3xl border border-white/10 shadow-2xl">
             <i className="fa-solid fa-box-open text-6xl text-white/20 mb-6"></i>
             <h2 className="text-3xl font-['Bebas_Neue'] tracking-widest text-[#e6e6eb] mb-4">NO ORDERS YET</h2>
-            <p className="text-white/50 font-['Space_Mono'] text-sm mb-8">You haven't placed any research orders yet.</p>
+            <p className="text-white/50 font-['Space_Mono'] text-sm mb-8">You haven&apos;t placed any research orders yet.</p>
             <Link href="/all-products" className="font-['Bebas_Neue'] text-xl tracking-widest py-3 px-8 rounded-full bg-[#6366f1] text-white hover:bg-[#ff0060] transition-all inline-block shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(255,0,96,0.6)]">
               Start Shopping
             </Link>

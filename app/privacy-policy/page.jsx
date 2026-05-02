@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
 
           <div className="policy-section">
             <h3>1. Overview</h3>
-            <p>ATX Research Peptides ("we", "our", "us") values your privacy and is committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you interact with our website or services.</p>
+            <p>ATX Research Peptides (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) values your privacy and is committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you interact with our website or services.</p>
           </div>
 
           <div className="policy-section">
